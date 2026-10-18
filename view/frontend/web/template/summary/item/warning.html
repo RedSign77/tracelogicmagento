@@ -1,0 +1,7 @@
+<!-- ko if: getNotice($parents[1]) -->
+<span class="tracelogic-item-warning" tabindex="0" role="img"
+      data-bind="css: {'tracelogic-error': getNotice($parents[1]).type === 'error'}, attr: {'aria-label': getText($parents[1])}, event: {mouseover: showTip, focusin: showTip}">
+    <span class="tracelogic-item-warning-icon" aria-hidden="true">&#9888;</span>
+    <span class="tracelogic-item-warning-tip" data-bind="text: getText($parents[1])"></span>
+</span>
+<!-- /ko -->

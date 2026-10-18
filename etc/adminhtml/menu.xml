@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webtech Solutions
+ * Copyright © 2026 Webtech Solutions. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="WebtechSolutions_TraceLogic::tracelogic" title="TraceLogic" translate="title" module="WebtechSolutions_TraceLogic" sortOrder="200" resource="WebtechSolutions_TraceLogic::tracelogic"/>
+        <add id="WebtechSolutions_TraceLogic::report" title="Compliance report" translate="title" module="WebtechSolutions_TraceLogic" sortOrder="10" parent="WebtechSolutions_TraceLogic::tracelogic" action="tracelogic/report/index" resource="WebtechSolutions_TraceLogic::report"/>
+        <add id="WebtechSolutions_TraceLogic::supplier" title="Supplier data request" translate="title" module="WebtechSolutions_TraceLogic" sortOrder="20" parent="WebtechSolutions_TraceLogic::tracelogic" action="tracelogic/supplier/index" resource="WebtechSolutions_TraceLogic::supplier"/>
+        <add id="WebtechSolutions_TraceLogic::config" title="Configuration" translate="title" module="WebtechSolutions_TraceLogic" sortOrder="30" parent="WebtechSolutions_TraceLogic::tracelogic" action="adminhtml/system_config/edit/section/tracelogic" resource="WebtechSolutions_TraceLogic::config"/>
+    </menu>
+</config>

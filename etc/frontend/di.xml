@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webtech Solutions
+ * Copyright © 2026 Webtech Solutions. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Controller\Cart\Index">
+        <plugin name="tracelogic_cart_compliance" type="WebtechSolutions\TraceLogic\Plugin\CartCompliance"/>
+    </type>
+    <type name="Magento\Checkout\Block\Cart\Item\Renderer">
+        <plugin name="tracelogic_cart_item_messages" type="WebtechSolutions\TraceLogic\Plugin\CartItemMessages"/>
+    </type>
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="tracelogic_item_notices" xsi:type="object">WebtechSolutions\TraceLogic\Model\CheckoutConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

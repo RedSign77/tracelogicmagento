@@ -1,0 +1,17 @@
+<?php
+/**
+ * Webtech Solutions
+ * Copyright © 2026 Webtech Solutions. All rights reserved.
+ */
+declare(strict_types=1);
+
+/** @var \WebtechSolutions\TraceLogic\Block\Order\CartNotice $block */
+/** @var \Magento\Framework\Escaper $escaper */
+$notice = $block->getNotice();
+if ($notice === null) {
+    return;
+}
+?>
+<div class="message <?= $notice['type'] === 'error' ? 'error' : 'warning' ?>">
+    <div><?= $escaper->escapeHtml($notice['message']) ?></div>
+</div>

@@ -1,0 +1,22 @@
+<?php
+/**
+ * Webtech Solutions
+ * Copyright © 2026 Webtech Solutions. All rights reserved.
+ */
+declare(strict_types=1);
+
+/** @var \WebtechSolutions\TraceLogic\Block\Order\HoldNotice $block */
+/** @var \Magento\Framework\Escaper $escaper */
+if (!$block->isHeld()) {
+    return;
+}
+?>
+<div class="message warning">
+    <div>
+        <?= $escaper->escapeHtml(__(
+            'Your order was received, but it is on hold until the supplier provides the required EU compliance '
+            . 'data (EUDR / green claims). It will be processed automatically once the data is verified. Reference: %1',
+            $block->getReference()
+        )) ?>
+    </div>
+</div>

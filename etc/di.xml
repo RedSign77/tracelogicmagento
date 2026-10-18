@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webtech Solutions
+ * Copyright © 2026 Webtech Solutions. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="WebtechSolutions\TraceLogic\Logger\Handler" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/tracelogic.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="WebtechSolutions\TraceLogic\Logger\Logger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="name" xsi:type="string">tracelogic</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">WebtechSolutions\TraceLogic\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="WebtechSolutions\TraceLogic\Model\Api\Client">
+        <arguments>
+            <argument name="logger" xsi:type="object">WebtechSolutions\TraceLogic\Logger\Logger</argument>
+        </arguments>
+    </type>
+    <type name="WebtechSolutions\TraceLogic\Model\CheckoutValidator">
+        <arguments>
+            <argument name="logger" xsi:type="object">WebtechSolutions\TraceLogic\Logger\Logger</argument>
+        </arguments>
+    </type>
+    <type name="WebtechSolutions\TraceLogic\Model\CatalogScanner">
+        <arguments>
+            <argument name="logger" xsi:type="object">WebtechSolutions\TraceLogic\Logger\Logger</argument>
+        </arguments>
+    </type>
+    <type name="WebtechSolutions\TraceLogic\Model\OrderRechecker">
+        <arguments>
+            <argument name="logger" xsi:type="object">WebtechSolutions\TraceLogic\Logger\Logger</argument>
+        </arguments>
+    </type>
+    <type name="WebtechSolutions\TraceLogic\Model\SupplierRequester">
+        <arguments>
+            <argument name="logger" xsi:type="object">WebtechSolutions\TraceLogic\Logger\Logger</argument>
+        </arguments>
+    </type>
+    <type name="WebtechSolutions\TraceLogic\Model\Queue\OrderRecheckConsumer">
+        <arguments>
+            <argument name="logger" xsi:type="object">WebtechSolutions\TraceLogic\Logger\Logger</argument>
+        </arguments>
+    </type>
+    <type name="WebtechSolutions\TraceLogic\Plugin\ProductSaveScan">
+        <arguments>
+            <argument name="logger" xsi:type="object">WebtechSolutions\TraceLogic\Logger\Logger</argument>
+        </arguments>
+    </type>
+    <type name="WebtechSolutions\TraceLogic\Observer\QueueRecheck">
+        <arguments>
+            <argument name="logger" xsi:type="object">WebtechSolutions\TraceLogic\Logger\Logger</argument>
+        </arguments>
+    </type>
+
+    <type name="WebtechSolutions\TraceLogic\Observer\HoldRejectedOrder">
+        <arguments>
+            <argument name="logger" xsi:type="object">WebtechSolutions\TraceLogic\Logger\Logger</argument>
+        </arguments>
+    </type>
+    <type name="WebtechSolutions\TraceLogic\Cron\ReleaseHeldOrders">
+        <arguments>
+            <argument name="logger" xsi:type="object">WebtechSolutions\TraceLogic\Logger\Logger</argument>
+        </arguments>
+    </type>
+    <type name="WebtechSolutions\TraceLogic\Model\SupplierSync">
+        <arguments>
+            <argument name="logger" xsi:type="object">WebtechSolutions\TraceLogic\Logger\Logger</argument>
+        </arguments>
+    </type>
+    <type name="WebtechSolutions\TraceLogic\Model\SupplierNotifier">
+        <arguments>
+            <argument name="logger" xsi:type="object">WebtechSolutions\TraceLogic\Logger\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\QuoteManagement">
+        <plugin name="tracelogic_place_order_gate" type="WebtechSolutions\TraceLogic\Plugin\PlaceOrderGate" sortOrder="10"/>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="tracelogic_catalog_scan" xsi:type="object">WebtechSolutions\TraceLogic\Console\ScanCatalogCommand</item>
+                <item name="tracelogic_supplier_sync" xsi:type="object">WebtechSolutions\TraceLogic\Console\SyncSuppliersCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="WebtechSolutions\TraceLogic\Model\ResourceModel\ProductCheck\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">tracelogic_product_check</argument>
+            <argument name="resourceModel" xsi:type="string">WebtechSolutions\TraceLogic\Model\ResourceModel\ProductCheck</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="tracelogic_product_check_listing_data_source" xsi:type="string">WebtechSolutions\TraceLogic\Model\ResourceModel\ProductCheck\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Magento\Sales\Model\ResourceModel\Order\Grid" type="Magento\Sales\Model\ResourceModel\Grid">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="tracelogic_status" xsi:type="string">sales_order.tracelogic_status</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

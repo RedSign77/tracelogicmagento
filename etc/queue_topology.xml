@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webtech Solutions
+ * Copyright © 2026 Webtech Solutions. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
+    <exchange name="magento" connection="amqp">
+        <binding id="tracelogicOrderRecheck" topic="tracelogic.order.recheck" destinationType="queue" destination="tracelogic.order.recheck"/>
+    </exchange>
+</config>

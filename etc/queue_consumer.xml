@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webtech Solutions
+ * Copyright © 2026 Webtech Solutions. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
+    <consumer name="tracelogic.order.recheck" queue="tracelogic.order.recheck" connection="amqp" maxMessages="100" handler="WebtechSolutions\TraceLogic\Model\Queue\OrderRecheckConsumer::process"/>
+</config>

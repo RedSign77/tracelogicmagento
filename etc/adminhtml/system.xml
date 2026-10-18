@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webtech Solutions
+ * Copyright © 2026 Webtech Solutions. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="webtechsolutions" translate="label" sortOrder="300">
+            <label>Webtech Solutions</label>
+        </tab>
+        <section id="tracelogic" translate="label" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="0">
+            <tab>webtechsolutions</tab>
+            <label>TraceLogic Compliance</label>
+            <resource>WebtechSolutions_TraceLogic::config</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Connection</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="base_url" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1">
+                    <label>API Base URL</label>
+                    <validate>validate-url</validate>
+                </field>
+                <field id="api_key" translate="label" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1">
+                    <label>API Key</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="timeout" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1">
+                    <label>Timeout (seconds)</label>
+                    <comment>Checkout call timeout. Keep low.</comment>
+                    <validate>required-entry validate-number validate-greater-than-zero</validate>
+                </field>
+                <field id="verify_ssl" translate="label comment" type="select" sortOrder="45" showInDefault="1" showInWebsite="1">
+                    <label>Verify SSL certificate</label>
+                    <comment>Set to No only for local development with a self-signed / untrusted CA.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="fail_open" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1">
+                    <label>Fail-open</label>
+                    <comment>Yes: if TraceLogic is unreachable the order is placed and re-checked later. No: the order is blocked.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="on_rejected" translate="label comment" type="select" sortOrder="55" showInDefault="1" showInWebsite="1">
+                    <label>Rejected order handling</label>
+                    <comment>Block: the customer cannot place the order. Hold: the order is placed and held until a re-check passes (e.g. after the supplier uploaded the missing data).</comment>
+                    <source_model>WebtechSolutions\TraceLogic\Model\Config\Source\OnRejected</source_model>
+                </field>
+                <field id="warning_blocks" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1">
+                    <label>WARNING blocks checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="circuit_threshold" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1">
+                    <label>Circuit breaker: failures before pause</label>
+                    <validate>required-entry validate-digits validate-greater-than-zero</validate>
+                </field>
+                <field id="circuit_pause" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1">
+                    <label>Circuit breaker: pause (minutes)</label>
+                    <validate>required-entry validate-digits validate-greater-than-zero</validate>
+                </field>
+                <field id="scan_on_save" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1">
+                    <label>Check product on admin save</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="attributes" translate="label comment" sortOrder="20" showInDefault="1" showInWebsite="1">
+                <label>Attribute mapping</label>
+                <comment>Product attribute codes holding the compliance data.</comment>
+                <field id="hs_code" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"><label>HS code</label></field>
+                <field id="supplier_code" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"><label>Supplier code</label></field>
+                <field id="certificates" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"><label>Certificates (comma separated)</label></field>
+                <field id="country_of_origin" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1"><label>Country of origin (ISO-2)</label></field>
+                <field id="species" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1"><label>Scientific species name</label></field>
+                <field id="geolocation" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1"><label>Geolocation (GeoJSON)</label></field>
+                <field id="plot_area" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1"><label>Plot area (hectares)</label></field>
+                <field id="dds_reference" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1"><label>DDS reference number</label></field>
+                <field id="supplier_email" translate="label" type="text" sortOrder="85" showInDefault="1" showInWebsite="1"><label>Supplier e-mail</label></field>
+                <field id="description" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1"><label>Description (scanned for green claims)</label></field>
+            </group>
+            <group id="supplier" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1">
+                <label>Supplier request e-mail</label>
+                <field id="auto_request" translate="label comment" type="select" sortOrder="5" showInDefault="1" showInWebsite="1">
+                    <label>E-mail the supplier on rejected orders</label>
+                    <comment>When an order is blocked for missing supplier data (geolocation, DDS, declaration), a data request link is e-mailed to the supplier (at most once per 7 days per supplier).</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="email_sender" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="email_template" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1">
+                    <label>Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

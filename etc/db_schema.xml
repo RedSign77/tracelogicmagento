@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webtech Solutions
+ * Copyright © 2026 Webtech Solutions. All rights reserved.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order">
+        <column xsi:type="varchar" name="tracelogic_audit_token" nullable="true" length="40" comment="TraceLogic audit token"/>
+        <column xsi:type="varchar" name="tracelogic_status" nullable="true" length="20" comment="TraceLogic status"/>
+        <column xsi:type="smallint" name="tracelogic_score" unsigned="true" nullable="true" comment="TraceLogic compliance score"/>
+        <column xsi:type="text" name="tracelogic_flags" nullable="true" comment="TraceLogic flags JSON"/>
+    </table>
+    <table name="sales_order_grid">
+        <column xsi:type="varchar" name="tracelogic_status" nullable="true" length="20" comment="TraceLogic status"/>
+    </table>
+    <table name="tracelogic_product_check" resource="default" engine="innodb" comment="TraceLogic product compliance check">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" comment="Product ID"/>
+        <column xsi:type="smallint" name="website_id" unsigned="true" nullable="false" default="0" comment="Website ID"/>
+        <column xsi:type="varchar" name="sku" nullable="false" length="64" comment="SKU"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="20" comment="COMPLIANT, NON_COMPLIANT, WARNING, INCOMPLETE"/>
+        <column xsi:type="text" name="flags" nullable="true" comment="Flags JSON"/>
+        <column xsi:type="timestamp" name="checked_at" nullable="false" default="CURRENT_TIMESTAMP" comment="Checked at"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="TRACELOGIC_PRODUCT_CHECK_PRODUCT_ID_WEBSITE_ID">
+            <column name="product_id"/>
+            <column name="website_id"/>
+        </constraint>
+        <index referenceId="TRACELOGIC_PRODUCT_CHECK_STATUS" indexType="btree">
+            <column name="status"/>
+        </index>
+    </table>
+    <table name="tracelogic_supplier_request" resource="default" engine="innodb" comment="TraceLogic supplier data requests">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="varchar" name="supplier_code" nullable="false" length="100" comment="Supplier code"/>
+        <column xsi:type="varchar" name="supplier_email" nullable="false" length="255" comment="Supplier e-mail"/>
+        <column xsi:type="varchar" name="required_fields" nullable="false" length="255" comment="Requested fields"/>
+        <column xsi:type="timestamp" name="expires_at" nullable="true" comment="Link expiry"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" comment="Created at"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>

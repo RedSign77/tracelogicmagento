@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webtech Solutions
+ * Copyright © 2026 Webtech Solutions. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="tracelogic_catalog_scan" instance="WebtechSolutions\TraceLogic\Cron\ScanCatalog" method="execute">
+            <schedule>0 2 * * *</schedule>
+        </job>
+        <job name="tracelogic_requeue_unchecked" instance="WebtechSolutions\TraceLogic\Cron\RequeueUnchecked" method="execute">
+            <schedule>15 * * * *</schedule>
+        </job>
+        <job name="tracelogic_release_held" instance="WebtechSolutions\TraceLogic\Cron\ReleaseHeldOrders" method="execute">
+            <schedule>30 * * * *</schedule>
+        </job>
+    </group>
+</config>

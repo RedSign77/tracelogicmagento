@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webtech Solutions
+ * Copyright © 2026 Webtech Solutions. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="tracelogic_save_audit_to_order" instance="WebtechSolutions\TraceLogic\Observer\SaveAuditToOrder"/>
+    </event>
+    <event name="checkout_submit_all_after">
+        <observer name="tracelogic_hold_rejected_order" instance="WebtechSolutions\TraceLogic\Observer\HoldRejectedOrder"/>
+        <observer name="tracelogic_queue_recheck" instance="WebtechSolutions\TraceLogic\Observer\QueueRecheck"/>
+    </event>
+</config>

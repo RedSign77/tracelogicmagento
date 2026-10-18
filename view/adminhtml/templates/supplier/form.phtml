@@ -1,0 +1,35 @@
+<?php
+/**
+ * Webtech Solutions
+ * Copyright © 2026 Webtech Solutions. All rights reserved.
+ */
+declare(strict_types=1);
+
+/** @var \WebtechSolutions\TraceLogic\Block\Adminhtml\Supplier\Form $block */
+/** @var \Magento\Framework\Escaper $escaper */
+$websites = $block->getWebsites();
+?>
+<?php if ($websites === []): ?>
+    <div class="message message-warning"><?= $escaper->escapeHtml(__('No website has TraceLogic enabled.')) ?></div>
+<?php else: ?>
+<form method="post" action="<?= $escaper->escapeUrl($block->getActionUrl()) ?>" class="admin__fieldset-wrapper">
+    <input name="form_key" type="hidden" value="<?= $escaper->escapeHtmlAttr($block->getFormKey()) ?>"/>
+    <div class="admin__field"><label class="admin__field-label"><span><?= $escaper->escapeHtml(__('Website')) ?></span></label>
+        <div class="admin__field-control"><select name="website_id" class="admin__control-select">
+            <?php foreach ($websites as $id => $name): ?>
+                <option value="<?= (int)$id ?>"><?= $escaper->escapeHtml($name) ?></option>
+            <?php endforeach; ?>
+        </select></div></div>
+    <div class="admin__field"><label class="admin__field-label"><span><?= $escaper->escapeHtml(__('Supplier code')) ?></span></label>
+        <div class="admin__field-control"><input type="text" name="supplier_code" class="admin__control-text" required maxlength="100"/></div></div>
+    <div class="admin__field"><label class="admin__field-label"><span><?= $escaper->escapeHtml(__('Supplier e-mail')) ?></span></label>
+        <div class="admin__field-control"><input type="email" name="supplier_email" class="admin__control-text" required maxlength="255"/></div></div>
+    <div class="admin__field"><label class="admin__field-label"><span><?= $escaper->escapeHtml(__('Requested data')) ?></span></label>
+        <div class="admin__field-control">
+            <?php foreach ($block->getFields() as $field): ?>
+                <div><label><input type="checkbox" name="fields[]" value="<?= $escaper->escapeHtmlAttr($field) ?>"<?= in_array($field, ['geolocation', 'dds_reference_number'], true) ? ' checked' : '' ?>/> <?= $escaper->escapeHtml($field) ?></label></div>
+            <?php endforeach; ?>
+        </div></div>
+    <button type="submit" class="action-primary"><span><?= $escaper->escapeHtml(__('Send request')) ?></span></button>
+</form>
+<?php endif; ?>

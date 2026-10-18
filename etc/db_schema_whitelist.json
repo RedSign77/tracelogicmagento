@@ -1,0 +1,46 @@
+{
+    "sales_order": {
+        "column": {
+            "tracelogic_audit_token": true,
+            "tracelogic_status": true,
+            "tracelogic_score": true,
+            "tracelogic_flags": true
+        }
+    },
+    "sales_order_grid": {
+        "column": {
+            "tracelogic_status": true
+        }
+    },
+    "tracelogic_product_check": {
+        "column": {
+            "entity_id": true,
+            "product_id": true,
+            "website_id": true,
+            "sku": true,
+            "status": true,
+            "flags": true,
+            "checked_at": true
+        },
+        "index": {
+            "TRACELOGIC_PRODUCT_CHECK_STATUS": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "TRACELOGIC_PRODUCT_CHECK_PRODUCT_ID_WEBSITE_ID": true
+        }
+    },
+    "tracelogic_supplier_request": {
+        "column": {
+            "entity_id": true,
+            "supplier_code": true,
+            "supplier_email": true,
+            "required_fields": true,
+            "expires_at": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webtech Solutions
+ * Copyright © 2026 Webtech Solutions. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="tracelogic" frontName="tracelogic">
+            <module name="WebtechSolutions_TraceLogic"/>
+        </route>
+    </router>
+</config>

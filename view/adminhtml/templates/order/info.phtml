@@ -1,0 +1,63 @@
+<?php
+/**
+ * Webtech Solutions
+ * Copyright © 2026 Webtech Solutions. All rights reserved.
+ */
+declare(strict_types=1);
+
+/** @var \WebtechSolutions\TraceLogic\Block\Adminhtml\Order\Info $block */
+/** @var \Magento\Framework\Escaper $escaper */
+if (!$block->hasCheck()) {
+    return;
+}
+?>
+<section class="admin__page-section">
+    <div class="admin__page-section-title"><span class="title"><?= $escaper->escapeHtml(__('TraceLogic Compliance')) ?></span></div>
+    <div class="admin__page-section-content">
+        <table class="admin__table-secondary">
+            <tr><th><?= $escaper->escapeHtml(__('Status')) ?></th><td><strong><?= $escaper->escapeHtml($block->getStatus()) ?></strong></td></tr>
+            <tr><th><?= $escaper->escapeHtml(__('Score')) ?></th><td><?= $escaper->escapeHtml($block->getScore()) ?></td></tr>
+            <tr><th><?= $escaper->escapeHtml(__('Audit token')) ?></th><td><?= $escaper->escapeHtml($block->getToken() ?: '-') ?></td></tr>
+        </table>
+        <?php if ($block->getFlags()): ?>
+            <table class="data-table admin__table-primary" style="margin-top:15px">
+                <thead>
+                    <tr>
+                        <th><?= $escaper->escapeHtml(__('Severity')) ?></th>
+                        <th><?= $escaper->escapeHtml(__('Product (SKU)')) ?></th>
+                        <th><?= $escaper->escapeHtml(__('Flag')) ?></th>
+                        <th><?= $escaper->escapeHtml(__('Details')) ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($block->getFlags() as $flag): ?>
+                    <?php $sku = (string)($flag['sku'] ?? ''); $url = $block->getProductUrl($sku); ?>
+                    <tr>
+                        <td><?= $escaper->escapeHtml($flag['severity'] ?? '') ?></td>
+                        <td>
+                            <?php if ($url): ?>
+                                <a href="<?= $escaper->escapeUrl($url) ?>" target="_blank"><?= $escaper->escapeHtml($sku) ?></a>
+                            <?php else: ?>
+                                <?= $escaper->escapeHtml($sku !== '' ? $sku : '-') ?>
+                            <?php endif; ?>
+                        </td>
+                        <td><?= $escaper->escapeHtml($flag['code'] ?? '') ?></td>
+                        <td><?= $escaper->escapeHtml($flag['message'] ?? '') ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+        <?php if ($block->canCheck()): ?>
+            <p>
+                <?php if ($block->getToken() !== ''): ?>
+                    <a class="action-default" href="<?= $escaper->escapeUrl($block->getVerifyUrl()) ?>"><?= $escaper->escapeHtml(__('Verify audit entry')) ?></a>
+                <?php endif; ?>
+                <form method="post" action="<?= $escaper->escapeUrl($block->getRecheckUrl()) ?>" style="display:inline">
+                    <input name="form_key" type="hidden" value="<?= $escaper->escapeHtmlAttr($block->getFormKey()) ?>"/>
+                    <button type="submit" class="action-default"><?= $escaper->escapeHtml(__('Re-check')) ?></button>
+                </form>
+            </p>
+        <?php endif; ?>
+    </div>
+</section>

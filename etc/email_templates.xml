@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webtech Solutions
+ * Copyright © 2026 Webtech Solutions. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="tracelogic_supplier_email_template" label="TraceLogic Supplier Data Request" file="supplier_request.html" type="html" module="WebtechSolutions_TraceLogic" area="frontend"/>
+</config>

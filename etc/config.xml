@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webtech Solutions
+ * Copyright © 2026 Webtech Solutions. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <tracelogic>
+            <general>
+                <enabled>0</enabled>
+                <base_url></base_url>
+                <timeout>2</timeout>
+                <verify_ssl>1</verify_ssl>
+                <fail_open>1</fail_open>
+                <on_rejected>block</on_rejected>
+                <warning_blocks>0</warning_blocks>
+                <circuit_threshold>5</circuit_threshold>
+                <circuit_pause>5</circuit_pause>
+                <scan_on_save>1</scan_on_save>
+            </general>
+            <attributes>
+                <hs_code>tracelogic_hs_code</hs_code>
+                <supplier_code>tracelogic_supplier_code</supplier_code>
+                <certificates>tracelogic_certificates</certificates>
+                <country_of_origin>tracelogic_country_of_origin</country_of_origin>
+                <species>tracelogic_species</species>
+                <geolocation>tracelogic_geolocation</geolocation>
+                <plot_area>tracelogic_plot_area</plot_area>
+                <dds_reference>tracelogic_dds_reference</dds_reference>
+                <supplier_email>tracelogic_supplier_email</supplier_email>
+                <description>description</description>
+            </attributes>
+            <supplier>
+                <auto_request>0</auto_request>
+                <email_sender>general</email_sender>
+                <email_template>tracelogic_supplier_email_template</email_template>
+            </supplier>
+        </tracelogic>
+    </default>
+</config>
