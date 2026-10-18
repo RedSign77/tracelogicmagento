@@ -87,17 +87,6 @@ Audit token saved to Order     notified via Magic Link
 
 ## Installation
 
-### Via Composer (Recommended)
-
-```bash
-composer require webtech-solutions/module-tracelogic
-bin/magento module:enable WebtechSolutions_TraceLogic
-bin/magento setup:upgrade
-bin/magento setup:di:compile
-bin/magento cache:flush
-
-```
-
 ### Manual Installation
 
 1. Download or clone this repository into `app/code/WebtechSolutions/TraceLogic`.
@@ -117,9 +106,10 @@ bin/magento cache:flush
 
 1. In the Magento Admin, navigate to:
 **Stores > Configuration > Webtech Solutions > TraceLogic Compliance**.
+
 2. Set configuration at the **Website** or **Default** scope:
 * **Enable:** `Yes`
-* **Gateway Base URL:** `https://api.tracelogicgateway.com`
+* **Gateway Base URL:** `https://tracelogicgateway.com`
 * **API Key:** `sec_live_...`
 * **Action on Rejection:** `Block Checkout` or `Place Order on Hold`
 * **Action on Warning:** `Allow Order` or `Flag for Review`
